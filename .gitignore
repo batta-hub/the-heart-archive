@@ -1,0 +1,4 @@
+node_modules/
+.heart-archive-git/
+.DS_Store
+*.log

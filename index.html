@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="The Heart Archive is a calm online archive of accidental heart shapes found in the world."
+    />
+    <title>The Heart Archive</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="wordmark" href="#/">The Heart Archive</a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#/">Archive</a>
+        <a href="#/submit">Submit</a>
+        <a href="#/about">About</a>
+        <a href="#/moderation">Review</a>
+      </nav>
+    </header>
+
+    <main id="main" class="app-shell" tabindex="-1"></main>
+
+    <template id="archive-template">
+      <section class="archive-hero" aria-labelledby="archive-title">
+        <div class="hero-copy">
+          <h1 id="archive-title">Love leaves traces everywhere.</h1>
+          <p>
+            The Heart Archive is a living collection of heart-shaped moments
+            discovered by strangers around the world.
+          </p>
+          <p>A reminder that beauty is always closer than we think.</p>
+        </div>
+      </section>
+
+      <section class="map-section" aria-labelledby="map-title">
+        <div class="map-heading">
+          <p class="kicker">Found so far</p>
+          <h2 id="map-title">A small atlas of noticed hearts.</h2>
+        </div>
+
+        <div class="world-map" role="img" aria-label="World map showing submitted hearts in Boston, Dubai, Lebanon, Dearborn, and Ecuador.">
+          <svg viewBox="0 0 1200 560" aria-hidden="true">
+            <g class="map-graticule">
+              <path d="M0 280H1200" />
+              <path d="M200 0V560M400 0V560M600 0V560M800 0V560M1000 0V560" />
+              <path d="M0 140H1200M0 420H1200" />
+            </g>
+
+            <path class="map-land" d="M150 125l35-20 48-6 44 13 43 4 38 22 19 34-10 35 24 31-5 37-29 8-20 30-32-7-32 15-30-15-39 10-37-18-29-40-37-18-21-36 12-43 38-38Z" />
+            <path class="map-land" d="M70 175l32-18 41 5 18 27-17 25-35 7-42-18 3-28Z" />
+            <path class="map-land" d="M285 318l45 18 33 42 20 57-15 52-37 42-28-18-9-50-28-43-5-48 24-52Z" />
+            <path class="map-land" d="M430 70l54-25 47 12 15 38-31 43-49 8-43-25 7-51Z" />
+
+            <path class="map-land" d="M535 158l50-28 62-11 51 14 24 29-10 33-55 10-47-7-34 23-35-13-24-26 18-24Z" />
+            <path class="map-land" d="M575 225l52-19 58 18 41 51 39 74-8 70-38 55-49-7-30-47-44-35-25-61-25-55 29-44Z" />
+            <path class="map-land" d="M704 124l82-20 96 8 91 34 83 23 65 48 9 49-35 27-72-10-55 17-65-14-57 22-65-13-50-44-27-62 0-61Z" />
+            <path class="map-land" d="M748 248l43 7 42 35 17 42-24 31-56-9-33-40-24-39 35-27Z" />
+            <path class="map-land" d="M1016 328l46 14 37 32 7 39-31 31-61 2-41-24-14-45 57-49Z" />
+            <path class="map-land" d="M548 493l98-17 138-3 135 9 118 20 43 27-174 19-206-1-161-20 9-34Z" />
+          </svg>
+
+          <span class="map-marker marker-boston" aria-label="Boston">♥</span>
+          <span class="map-marker marker-dearborn" aria-label="Dearborn">♥</span>
+          <span class="map-marker marker-lebanon" aria-label="Lebanon">♥</span>
+          <span class="map-marker marker-dubai" aria-label="Dubai">♥</span>
+          <span class="map-marker marker-ecuador" aria-label="Ecuador">♥</span>
+        </div>
+
+      </section>
+
+      <div class="hero-actions homepage-actions">
+        <a class="button primary" href="#/submit">Submit a Heart</a>
+        <button class="button quiet" type="button" data-scroll-gallery>
+          Browse the Archive
+        </button>
+      </div>
+
+      <section class="why-section" aria-labelledby="why-title">
+        <p class="kicker">Why it exists</p>
+        <h2 id="why-title">A place for noticing.</h2>
+        <p>
+          The Heart Archive is not a social feed. There are no likes, followers,
+          or rankings. Each heart is a small record of attention: a moment when
+          someone looked closely and found tenderness in the everyday.
+        </p>
+      </section>
+
+      <section id="archive" class="archive-section" aria-labelledby="gallery-title">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">Archive</p>
+            <h2 id="gallery-title">Recently added</h2>
+          </div>
+          <p class="archive-count" data-archive-count></p>
+        </div>
+
+        <div class="filter-bar" role="tablist" aria-label="Filter by category">
+          <button class="filter-chip active" type="button" data-category="All">
+            All
+          </button>
+          <button class="filter-chip" type="button" data-category="Nature">
+            Nature
+          </button>
+          <button class="filter-chip" type="button" data-category="City">
+            City
+          </button>
+          <button class="filter-chip" type="button" data-category="Food">
+            Food
+          </button>
+          <button class="filter-chip" type="button" data-category="Sky">
+            Sky
+          </button>
+          <button class="filter-chip" type="button" data-category="Shadow">
+            Shadow
+          </button>
+          <button class="filter-chip" type="button" data-category="Object">
+            Object
+          </button>
+          <button class="filter-chip" type="button" data-category="Water">
+            Water
+          </button>
+        </div>
+
+        <div class="heart-grid" data-heart-grid></div>
+        <div class="empty-state hidden" data-empty-archive>
+          <p>No hearts here yet.</p>
+          <a class="button secondary" href="#/submit">Be the first to notice one</a>
+        </div>
+      </section>
+
+      <section class="closing-invitation" aria-label="Submit invitation">
+        <p>Found one?</p>
+        <a class="button primary" href="#/submit">Submit a Heart</a>
+      </section>
+    </template>
+
+    <template id="detail-template">
+      <section class="detail-page" data-detail-page></section>
+    </template>
+
+    <template id="submit-template">
+      <section class="submit-page" aria-labelledby="submit-title">
+        <div class="form-intro">
+          <p class="kicker">Contribute</p>
+          <h1 id="submit-title">Submit a Heart</h1>
+          <p>
+            Add a found heart to the review queue. The photo matters most;
+            everything else can stay light.
+          </p>
+        </div>
+
+        <form class="submission-form" data-submission-form>
+          <label class="upload-box">
+            <span class="upload-prompt" data-upload-prompt>Choose photo</span>
+            <img class="upload-preview hidden" alt="" data-upload-preview />
+            <input type="file" accept="image/*" name="image" required />
+          </label>
+
+          <div class="form-grid">
+            <label>
+              <span>Title <em>optional</em></span>
+              <input name="title" maxlength="80" placeholder="Sidewalk after rain" />
+            </label>
+
+            <label>
+              <span>Category</span>
+              <select name="category" required>
+                <option>Nature</option>
+                <option>City</option>
+                <option>Food</option>
+                <option>Sky</option>
+                <option>Shadow</option>
+                <option>Object</option>
+                <option>Water</option>
+                <option>Other</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            <span>Note <em>optional</em></span>
+            <textarea
+              name="note"
+              rows="4"
+              maxlength="240"
+              placeholder="A small heart I noticed on the walk home."
+            ></textarea>
+          </label>
+
+          <div class="form-grid">
+            <label>
+              <span>Location <em>optional</em></span>
+              <input name="location" maxlength="80" placeholder="Brooklyn, NY" />
+            </label>
+
+            <fieldset class="segmented-field">
+              <legend>Location visibility</legend>
+              <label>
+                <input type="radio" name="visibility" value="Hidden" checked />
+                <span>Hidden</span>
+              </label>
+              <label>
+                <input type="radio" name="visibility" value="Approximate" />
+                <span>Approximate</span>
+              </label>
+              <label>
+                <input type="radio" name="visibility" value="Public" />
+                <span>Public</span>
+              </label>
+            </fieldset>
+          </div>
+
+          <div class="form-actions">
+            <button class="button primary" type="submit">Submit</button>
+            <a class="button secondary" href="#/">Cancel</a>
+          </div>
+        </form>
+      </section>
+    </template>
+
+    <template id="confirmation-template">
+      <section class="confirmation-page" aria-labelledby="confirmation-title">
+        <p class="kicker">Awaiting review</p>
+        <h1 id="confirmation-title">Thank you.</h1>
+        <p>
+          Your heart has been added to the review queue. If approved, it will
+          appear in the archive soon.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#/">Return to Archive</a>
+          <a class="button secondary" href="#/submit">Submit Another</a>
+        </div>
+      </section>
+    </template>
+
+    <template id="about-template">
+      <section class="about-page" aria-labelledby="about-title">
+        <p class="kicker">About</p>
+        <h1 id="about-title">A shared act of noticing.</h1>
+        <div class="about-copy">
+          <p>
+            The Heart Archive gathers accidental heart shapes found in ordinary
+            places. It is not a popularity feed. It is a calm record of small
+            moments when the world seemed to offer a sign.
+          </p>
+          <p>
+            Hearts can appear in nature, cities, food, clouds, shadows, water,
+            objects, and other unexpected places. Submissions are reviewed so
+            the archive stays gentle, safe, and true to its purpose.
+          </p>
+          <p>
+            Location is optional. Identity is quiet. The heart itself remains at
+            the center.
+          </p>
+        </div>
+        <a class="button primary" href="#/submit">Submit a Heart</a>
+      </section>
+    </template>
+
+    <template id="moderation-template">
+      <section class="moderation-page" aria-labelledby="moderation-title">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">Moderation</p>
+            <h1 id="moderation-title">Review Queue</h1>
+          </div>
+          <button class="button secondary" type="button" data-reset-demo>
+            Reset Demo
+          </button>
+        </div>
+
+        <div class="queue-layout">
+          <section>
+            <h2>Pending</h2>
+            <div class="review-list" data-review-list></div>
+            <p class="empty-state hidden" data-empty-review>
+              The review queue is clear.
+            </p>
+          </section>
+          <section>
+            <h2>Recent Decisions</h2>
+            <div class="decision-list" data-decision-list></div>
+            <p class="empty-state hidden" data-empty-decisions>
+              No decisions yet.
+            </p>
+          </section>
+        </div>
+      </section>
+    </template>
+
+    <script defer src="./src/app.js"></script>
+  </body>
+</html>
