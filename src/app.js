@@ -2,6 +2,7 @@ const SUPABASE_URL = "https://syufjyazsarkkvbebpsb.supabase.co";
 const SUPABASE_PUBLIC_KEY = "sb_publishable_64eQGFVOxzFEn-Ezgj_lQQ_rpMfLZu1";
 const HEART_PHOTOS_BUCKET = "heart-photos";
 const CONVERT_HEART_ENDPOINT = `${SUPABASE_URL}/functions/v1/convert-heart`;
+const AUTH_EMAIL_REDIRECT_URL = "https://batta-hub.github.io/the-heart-archive/";
 const AUTH_STORAGE_KEY = "heartArchive.session.v1";
 
 let approvedHeartsCache = [];
@@ -731,10 +732,13 @@ function renderAuth(nextPath = "submit") {
               method: "POST",
               body: JSON.stringify({ email, password }),
             })
-          : await authRequest("/auth/v1/signup", {
-              method: "POST",
-              body: JSON.stringify({ email, password }),
-            });
+          : await authRequest(
+              `/auth/v1/signup?redirect_to=${encodeURIComponent(AUTH_EMAIL_REDIRECT_URL)}`,
+              {
+                method: "POST",
+                body: JSON.stringify({ email, password }),
+              },
+            );
 
       if (payload?.access_token) {
         saveSession(payload);
