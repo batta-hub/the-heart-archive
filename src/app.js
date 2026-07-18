@@ -1140,9 +1140,20 @@ async function route() {
   }
 }
 
+function normalizeSharedEntryRoute() {
+  if (/^#\/?auth(?:\/|$)/.test(window.location.hash || "")) {
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${window.location.search}#/`,
+    );
+  }
+}
+
 window.addEventListener("hashchange", () => {
   route();
 });
 
 setupAccountLinks();
+normalizeSharedEntryRoute();
 route();
