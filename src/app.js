@@ -655,7 +655,7 @@ async function renderSubmit() {
         : "We couldn't share this one just yet. Please try again in a moment.";
       submitButton.disabled = false;
       submitButton.innerHTML =
-        '<span class="button-icon" aria-hidden="true">♥</span> Share a Heart';
+        '<span class="button-icon" aria-hidden="true">♥</span> Add to the Archive';
     }
   });
 }

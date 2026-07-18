@@ -944,7 +944,6 @@ h3 {
   display: grid;
   gap: clamp(1.15rem, 2vw, 1.4rem);
   padding: clamp(1.4rem, 2.4vw, 1.8rem) 0;
-  border-bottom: 1px solid var(--border);
 }
 
 .step-heading {
@@ -1069,10 +1068,6 @@ h3 {
   gap: 1.15rem;
 }
 
-.story-step {
-  border-bottom: 0;
-}
-
 .share-step .form-grid label {
   align-content: start;
 }
@@ -1082,6 +1077,7 @@ h3 {
 }
 
 .submission-form > .form-actions {
+  justify-content: center;
   margin-top: 1.25rem;
 }
 
@@ -1097,10 +1093,11 @@ h3 {
 
 .sharing-promise {
   max-width: 580px;
-  margin: 1rem 0 0;
+  margin: 1rem auto 0;
   color: var(--muted);
   font-size: 0.86rem;
   line-height: 1.55;
+  text-align: center;
 }
 
 .confirmation-page {
