@@ -854,32 +854,6 @@ h3 {
   margin-left: auto;
 }
 
-.submit-page .form-intro > p:not(.kicker):not(.contribution-note) {
-  margin: 1rem auto 0;
-}
-
-.contribution-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin: 1.25rem 0 0 !important;
-  padding: 0.58rem 0.85rem;
-  border-top: 1px solid rgba(184, 107, 107, 0.28);
-  border-bottom: 1px solid rgba(184, 107, 107, 0.28);
-  color: var(--rose-deep) !important;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.98rem !important;
-  line-height: 1.45 !important;
-  justify-self: center;
-  width: fit-content;
-  max-width: 100%;
-}
-
-.contribution-note span {
-  color: var(--rose);
-  font-size: 0.82rem;
-}
-
 .about-page {
   position: relative;
   width: 100vw;
@@ -937,13 +911,16 @@ h3 {
   gap: 0;
   max-width: 900px;
   margin: clamp(1.5rem, 2.5vw, 2rem) auto 0;
-  border-top: 1px solid var(--border);
 }
 
 .share-step {
   display: grid;
   gap: clamp(1.15rem, 2vw, 1.4rem);
   padding: clamp(1.4rem, 2.4vw, 1.8rem) 0;
+}
+
+.photo-step {
+  padding-top: 0.35rem;
 }
 
 .step-heading {
@@ -1926,11 +1903,6 @@ textarea {
 
   .submit-page .form-intro {
     text-align: left;
-  }
-
-  .contribution-note {
-    align-items: flex-start;
-    justify-self: start;
   }
 
   .share-step {
