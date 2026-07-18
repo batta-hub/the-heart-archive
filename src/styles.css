@@ -936,14 +936,14 @@ h3 {
   display: grid;
   gap: 0;
   max-width: 900px;
-  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  margin: clamp(1.5rem, 2.5vw, 2rem) auto 0;
   border-top: 1px solid var(--border);
 }
 
 .share-step {
   display: grid;
-  gap: 1.15rem;
-  padding: clamp(1.5rem, 3.5vw, 2.35rem) 0;
+  gap: 0.85rem;
+  padding: clamp(1.1rem, 2vw, 1.45rem) 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -954,7 +954,7 @@ h3 {
   width: 100%;
 }
 
-.step-heading > span:last-child {
+.step-heading > span:last-child:not(.step-number) {
   display: grid;
   gap: 0.2rem;
 }
@@ -991,7 +991,7 @@ h3 {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 220px;
+  min-height: 175px;
   overflow: hidden;
   border: 1px dashed var(--soft);
   border-radius: 8px;
@@ -1053,7 +1053,7 @@ h3 {
 .upload-preview {
   width: 100%;
   height: 100%;
-  min-height: 220px;
+  min-height: 175px;
   object-fit: cover;
 }
 
@@ -1068,11 +1068,21 @@ h3 {
 }
 
 .share-step .form-grid textarea {
-  min-height: 112px;
+  min-height: 96px;
 }
 
 .submission-form > .form-actions {
-  margin-top: clamp(1.4rem, 3vw, 2rem);
+  margin-top: 1.25rem;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
 }
 
 .sharing-promise {
@@ -1904,7 +1914,7 @@ textarea {
 
   .upload-box,
   .upload-preview {
-    min-height: 190px;
+    min-height: 165px;
   }
 
   .submit-page .form-intro {
@@ -1917,7 +1927,7 @@ textarea {
   }
 
   .share-step {
-    padding: 1.4rem 0;
+    padding: 1.05rem 0;
   }
 
   .world-map {

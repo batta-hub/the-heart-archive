@@ -8,7 +8,7 @@
       content="The Heart Archive is a calm online archive of accidental heart shapes found in the world."
     />
     <title>The Heart Archive</title>
-    <link rel="stylesheet" href="./src/styles.css?v=2026-07-18-warmer-share" />
+    <link rel="stylesheet" href="./src/styles.css?v=2026-07-18-share-spacing" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -198,13 +198,10 @@
           <fieldset class="share-step">
             <legend class="step-heading">
               <span class="step-number" aria-hidden="true">2</span>
-              <span>
-                <strong>Where did it find you?</strong>
-                <small>A city and country is plenty.</small>
-              </span>
+              <strong>Where did you find it?</strong>
             </legend>
             <label>
-              <span>Location</span>
+              <span class="visually-hidden">Location</span>
               <input
                 name="location"
                 maxlength="80"
@@ -218,19 +215,16 @@
           <fieldset class="share-step">
             <legend class="step-heading">
               <span class="step-number" aria-hidden="true">3</span>
-              <span>
-                <strong>Add a few words</strong>
-                <small>Only if you feel like it.</small>
-              </span>
+              <strong>Tell us more!</strong>
             </legend>
             <div class="form-grid">
               <label>
-                <span>Give it a title <em>optional</em></span>
+                <span>Title <em>optional</em></span>
                 <input name="title" maxlength="80" placeholder="A heart after the rain" />
               </label>
 
               <label>
-                <span>Tell us about the moment <em>optional</em></span>
+                <span>Note <em>optional</em></span>
                 <textarea
                   name="note"
                   rows="4"
@@ -440,6 +434,6 @@
       </section>
     </template>
 
-    <script defer src="./src/app.js?v=2026-07-18-warmer-share"></script>
+    <script defer src="./src/app.js?v=2026-07-18-share-spacing"></script>
   </body>
 </html>
