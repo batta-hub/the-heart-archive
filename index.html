@@ -8,7 +8,7 @@
       content="The Heart Archive is a calm online archive of accidental heart shapes found in the world."
     />
     <title>The Heart Archive</title>
-    <link rel="stylesheet" href="./src/styles.css" />
+    <link rel="stylesheet" href="./src/styles.css?v=2026-07-17-footer-hearts-tight" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -16,77 +16,99 @@
       <a class="wordmark" href="#/">The Heart Archive</a>
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#/">Archive</a>
-        <a href="#/submit">Submit</a>
+        <a href="#/submit">Share</a>
         <a href="#/about">About</a>
-        <a href="#/moderation">Review</a>
+        <a class="hidden" href="#/moderation" data-review-link>Review</a>
+        <a href="#/auth/submit" data-account-link data-account-surface="header">
+          Sign in
+        </a>
       </nav>
     </header>
 
     <main id="main" class="app-shell" tabindex="-1"></main>
 
+    <footer class="site-footer">
+      <div class="footer-divider" aria-hidden="true">
+        <span>♥ ♥ ♥</span>
+      </div>
+      <div class="footer-inner">
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#/">Archive</a>
+          <a href="#/submit">Share</a>
+          <a href="#/about">About</a>
+          <a href="#/auth/submit" data-account-link data-account-surface="footer">
+            Sign in
+          </a>
+        </nav>
+        <p class="footer-title">The Heart Archive</p>
+        <p>For Love and Friendship</p>
+        <span class="footer-heart" aria-hidden="true">♥</span>
+        <p>Created by <span>Batta &amp; Wazza</span></p>
+        <p>&copy; 2026 The Heart Archive</p>
+      </div>
+    </footer>
+
     <template id="archive-template">
       <section class="archive-hero" aria-labelledby="archive-title">
+        <aside class="hero-preview" aria-labelledby="preview-title">
+          <div class="preview-heading">
+            <h2 id="preview-title">Latest Discoveries</h2>
+          </div>
+          <div class="preview-strip">
+            <div class="preview-grid" data-featured-grid></div>
+          </div>
+          <div class="preview-empty" data-featured-empty>
+            <p>Approved hearts will appear here as the archive begins to grow.</p>
+          </div>
+        </aside>
+
         <div class="hero-copy">
+          <p class="kicker">The Heart Archive</p>
           <h1 id="archive-title">Love leaves traces everywhere.</h1>
-          <p>
-            The Heart Archive is a living collection of heart-shaped moments
-            discovered by strangers around the world.
+          <p class="hero-lede">
+            People around the world collect these tiny moments of wonder and
+            share them here.
           </p>
-          <p>A reminder that beauty is always closer than we think.</p>
+          <p class="hero-note">
+            Every photograph was discovered by someone who simply looked a
+            little closer.
+          </p>
+          <div class="hero-actions">
+            <button class="button quiet" type="button" data-scroll-gallery>
+              Browse the Archive <span class="button-icon" aria-hidden="true">→</span>
+            </button>
+            <a class="button secondary" href="#/submit">
+              <span class="button-icon" aria-hidden="true">♥</span> Share a Heart
+            </a>
+          </div>
         </div>
       </section>
 
       <section class="map-section" aria-labelledby="map-title">
-        <div class="map-heading">
-          <p class="kicker">Found so far</p>
-          <h2 id="map-title">A small atlas of noticed hearts.</h2>
+        <div class="map-layout">
+          <div class="map-heading">
+            <p class="kicker">Found around the world</p>
+            <h2 id="map-title">Magical hearts, showing up everywhere.</h2>
+            <p>
+              Every marker is someone stopping for a second and thinking,
+              wait, that looks like a heart!
+            </p>
+            <div class="map-cta">
+              <p>Seen one?</p>
+              <a class="button primary" href="#/submit">
+                <span class="button-icon" aria-hidden="true">♥</span> Share a Heart
+              </a>
+            </div>
+          </div>
+
+          <figure class="world-map">
+            <img
+              src="./assets/temporary-heart-map.png?v=2026-07-15-6"
+              alt="Watercolor world map with red heart markers in several cities."
+            />
+          </figure>
         </div>
 
-        <div class="world-map" role="img" aria-label="World map showing submitted hearts in Boston, Dubai, Lebanon, Dearborn, and Ecuador.">
-          <svg viewBox="0 0 1200 560" aria-hidden="true">
-            <g class="map-graticule">
-              <path d="M0 280H1200" />
-              <path d="M200 0V560M400 0V560M600 0V560M800 0V560M1000 0V560" />
-              <path d="M0 140H1200M0 420H1200" />
-            </g>
-
-            <path class="map-land" d="M150 125l35-20 48-6 44 13 43 4 38 22 19 34-10 35 24 31-5 37-29 8-20 30-32-7-32 15-30-15-39 10-37-18-29-40-37-18-21-36 12-43 38-38Z" />
-            <path class="map-land" d="M70 175l32-18 41 5 18 27-17 25-35 7-42-18 3-28Z" />
-            <path class="map-land" d="M285 318l45 18 33 42 20 57-15 52-37 42-28-18-9-50-28-43-5-48 24-52Z" />
-            <path class="map-land" d="M430 70l54-25 47 12 15 38-31 43-49 8-43-25 7-51Z" />
-
-            <path class="map-land" d="M535 158l50-28 62-11 51 14 24 29-10 33-55 10-47-7-34 23-35-13-24-26 18-24Z" />
-            <path class="map-land" d="M575 225l52-19 58 18 41 51 39 74-8 70-38 55-49-7-30-47-44-35-25-61-25-55 29-44Z" />
-            <path class="map-land" d="M704 124l82-20 96 8 91 34 83 23 65 48 9 49-35 27-72-10-55 17-65-14-57 22-65-13-50-44-27-62 0-61Z" />
-            <path class="map-land" d="M748 248l43 7 42 35 17 42-24 31-56-9-33-40-24-39 35-27Z" />
-            <path class="map-land" d="M1016 328l46 14 37 32 7 39-31 31-61 2-41-24-14-45 57-49Z" />
-            <path class="map-land" d="M548 493l98-17 138-3 135 9 118 20 43 27-174 19-206-1-161-20 9-34Z" />
-          </svg>
-
-          <span class="map-marker marker-boston" aria-label="Boston">♥</span>
-          <span class="map-marker marker-dearborn" aria-label="Dearborn">♥</span>
-          <span class="map-marker marker-lebanon" aria-label="Lebanon">♥</span>
-          <span class="map-marker marker-dubai" aria-label="Dubai">♥</span>
-          <span class="map-marker marker-ecuador" aria-label="Ecuador">♥</span>
-        </div>
-
-      </section>
-
-      <div class="hero-actions homepage-actions">
-        <a class="button primary" href="#/submit">Submit a Heart</a>
-        <button class="button quiet" type="button" data-scroll-gallery>
-          Browse the Archive
-        </button>
-      </div>
-
-      <section class="why-section" aria-labelledby="why-title">
-        <p class="kicker">Why it exists</p>
-        <h2 id="why-title">A place for noticing.</h2>
-        <p>
-          The Heart Archive is not a social feed. There are no likes, followers,
-          or rankings. Each heart is a small record of attention: a moment when
-          someone looked closely and found tenderness in the everyday.
-        </p>
       </section>
 
       <section id="archive" class="archive-section" aria-labelledby="gallery-title">
@@ -98,43 +120,34 @@
           <p class="archive-count" data-archive-count></p>
         </div>
 
-        <div class="filter-bar" role="tablist" aria-label="Filter by category">
-          <button class="filter-chip active" type="button" data-category="All">
-            All
-          </button>
-          <button class="filter-chip" type="button" data-category="Nature">
-            Nature
-          </button>
-          <button class="filter-chip" type="button" data-category="City">
-            City
-          </button>
-          <button class="filter-chip" type="button" data-category="Food">
-            Food
-          </button>
-          <button class="filter-chip" type="button" data-category="Sky">
-            Sky
-          </button>
-          <button class="filter-chip" type="button" data-category="Shadow">
-            Shadow
-          </button>
-          <button class="filter-chip" type="button" data-category="Object">
-            Object
-          </button>
-          <button class="filter-chip" type="button" data-category="Water">
-            Water
-          </button>
-        </div>
-
         <div class="heart-grid" data-heart-grid></div>
         <div class="empty-state hidden" data-empty-archive>
           <p>No hearts here yet.</p>
-          <a class="button secondary" href="#/submit">Be the first to notice one</a>
+          <a class="button secondary" href="#/submit">
+            <span class="button-icon" aria-hidden="true">♥</span> Share a Heart
+          </a>
         </div>
       </section>
 
-      <section class="closing-invitation" aria-label="Submit invitation">
-        <p>Found one?</p>
-        <a class="button primary" href="#/submit">Submit a Heart</a>
+      <section class="why-section invitation-section" aria-labelledby="why-title">
+        <div class="invitation-layout">
+          <div class="invitation-copy">
+            <p class="kicker">An invitation to notice</p>
+            <h2 id="why-title">Seen one lately?</h2>
+            <p>
+              Maybe in a cloud. A coffee stain. A shadow on the wall.
+              If it made you pause, it belongs here.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#/submit">
+                <span class="button-icon" aria-hidden="true">♥</span> Share a Heart
+              </a>
+              <button class="button secondary" type="button" data-scroll-gallery>
+                Browse the Archive <span class="button-icon" aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
     </template>
 
@@ -145,11 +158,11 @@
     <template id="submit-template">
       <section class="submit-page" aria-labelledby="submit-title">
         <div class="form-intro">
-          <p class="kicker">Contribute</p>
-          <h1 id="submit-title">Submit a Heart</h1>
+          <p class="kicker">Share</p>
+          <h1 id="submit-title">Share a Heart</h1>
           <p>
-            Add a found heart to the review queue. The photo matters most;
-            everything else can stay light.
+            Share a found heart with the archive. Add the place where it was
+            found so it can join the map.
           </p>
         </div>
 
@@ -157,29 +170,18 @@
           <label class="upload-box">
             <span class="upload-prompt" data-upload-prompt>Choose photo</span>
             <img class="upload-preview hidden" alt="" data-upload-preview />
-            <input type="file" accept="image/*" name="image" required />
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.heic,.heif"
+              name="image"
+              required
+            />
           </label>
 
-          <div class="form-grid">
-            <label>
-              <span>Title <em>optional</em></span>
-              <input name="title" maxlength="80" placeholder="Sidewalk after rain" />
-            </label>
-
-            <label>
-              <span>Category</span>
-              <select name="category" required>
-                <option>Nature</option>
-                <option>City</option>
-                <option>Food</option>
-                <option>Sky</option>
-                <option>Shadow</option>
-                <option>Object</option>
-                <option>Water</option>
-                <option>Other</option>
-              </select>
-            </label>
-          </div>
+          <label>
+            <span>Title <em>optional</em></span>
+            <input name="title" maxlength="80" placeholder="Sidewalk after rain" />
+          </label>
 
           <label>
             <span>Note <em>optional</em></span>
@@ -191,33 +193,23 @@
             ></textarea>
           </label>
 
-          <div class="form-grid">
-            <label>
-              <span>Location <em>optional</em></span>
-              <input name="location" maxlength="80" placeholder="Brooklyn, NY" />
-            </label>
-
-            <fieldset class="segmented-field">
-              <legend>Location visibility</legend>
-              <label>
-                <input type="radio" name="visibility" value="Hidden" checked />
-                <span>Hidden</span>
-              </label>
-              <label>
-                <input type="radio" name="visibility" value="Approximate" />
-                <span>Approximate</span>
-              </label>
-              <label>
-                <input type="radio" name="visibility" value="Public" />
-                <span>Public</span>
-              </label>
-            </fieldset>
-          </div>
+          <label>
+            <span>Location</span>
+            <input
+              name="location"
+              maxlength="80"
+              placeholder="Brooklyn, NY"
+              required
+            />
+          </label>
 
           <div class="form-actions">
-            <button class="button primary" type="submit">Submit</button>
+            <button class="button primary" type="submit">
+              <span class="button-icon" aria-hidden="true">♥</span> Share a Heart
+            </button>
             <a class="button secondary" href="#/">Cancel</a>
           </div>
+          <p class="form-status" data-form-status role="status"></p>
         </form>
       </section>
     </template>
@@ -231,67 +223,179 @@
           appear in the archive soon.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#/">Return to Archive</a>
-          <a class="button secondary" href="#/submit">Submit Another</a>
+          <a class="button primary" href="#/">
+            Browse the Archive <span class="button-icon" aria-hidden="true">→</span>
+          </a>
+          <a class="button secondary" href="#/submit">
+            <span class="button-icon" aria-hidden="true">♥</span> Share a Heart
+          </a>
+        </div>
+      </section>
+    </template>
+
+    <template id="auth-template">
+      <section class="auth-page" aria-labelledby="auth-title">
+        <div class="auth-card">
+          <p class="kicker">Account</p>
+          <h1 id="auth-title">Sign in to share a heart.</h1>
+          <p>
+            The archive stays anonymous. Your email is only used so the review
+            room knows each shared heart came from a real person.
+          </p>
+
+          <div class="auth-switch" aria-label="Account mode">
+            <button type="button" data-auth-mode="signin">Sign in</button>
+            <button type="button" data-auth-mode="signup">Create account</button>
+          </div>
+
+          <form class="auth-form" data-auth-form>
+            <label>
+              <span>Email</span>
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+            <label>
+              <span>Password</span>
+              <input
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                minlength="6"
+                required
+              />
+            </label>
+            <button class="button primary" type="submit">Sign in</button>
+            <p class="form-status" data-auth-status role="status"></p>
+          </form>
         </div>
       </section>
     </template>
 
     <template id="about-template">
       <section class="about-page" aria-labelledby="about-title">
-        <p class="kicker">About</p>
-        <h1 id="about-title">A shared act of noticing.</h1>
-        <div class="about-copy">
-          <p>
-            The Heart Archive gathers accidental heart shapes found in ordinary
-            places. It is not a popularity feed. It is a calm record of small
-            moments when the world seemed to offer a sign.
-          </p>
-          <p>
-            Hearts can appear in nature, cities, food, clouds, shadows, water,
-            objects, and other unexpected places. Submissions are reviewed so
-            the archive stays gentle, safe, and true to its purpose.
-          </p>
-          <p>
-            Location is optional. Identity is quiet. The heart itself remains at
-            the center.
-          </p>
+        <div class="about-panel">
+          <p class="kicker">About</p>
+          <h1 id="about-title">A promise to notice love everywhere.</h1>
+          <div class="about-copy">
+            <p>
+              I started The Heart Archive because I believe we need to regain
+              the ability to appreciate the small quiet things.
+            </p>
+            <p>
+              To look closer. To have our attention directed not to the big and
+              loud events, but to the subtle details the world is always leaving
+              around us. To see love in ordinary places, and pass that feeling
+              on.
+            </p>
+            <p>
+              It began with my friend Wazza, who used to send me pictures of
+              every heart she noticed. She called it her heart archive. I
+              promised her I would build a real one.
+            </p>
+          </div>
+          <p class="about-invitation">Please share your precious lovely findings :)</p>
+          <a class="button primary" href="#/submit">
+            <span class="button-icon" aria-hidden="true">♥</span> Share a Heart
+          </a>
         </div>
-        <a class="button primary" href="#/submit">Submit a Heart</a>
       </section>
     </template>
 
     <template id="moderation-template">
       <section class="moderation-page" aria-labelledby="moderation-title">
-        <div class="section-heading">
+        <div class="dashboard-hero">
           <div>
-            <p class="kicker">Moderation</p>
-            <h1 id="moderation-title">Review Queue</h1>
+            <p class="kicker">Archive studio</p>
+            <h1 id="moderation-title">Today in the archive</h1>
+            <p>
+              Review what arrived, keep the collection intentional, and help
+              small moments find their way into the world.
+            </p>
+            <div class="archive-pulse" aria-label="Archive status">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span>Live</span>
+              <span class="pulse-line" aria-hidden="true"></span>
+              <span data-live-stamp></span>
+            </div>
           </div>
-          <button class="button secondary" type="button" data-reset-demo>
-            Reset Demo
-          </button>
+          <div class="dashboard-actions">
+            <span data-staff-label></span>
+            <a class="button secondary" href="#/">
+              Browse the Archive <span class="button-icon" aria-hidden="true">→</span>
+            </a>
+            <button class="button secondary" type="button" data-sign-out>
+              Sign out
+            </button>
+          </div>
         </div>
 
-        <div class="queue-layout">
-          <section>
-            <h2>Pending</h2>
-            <div class="review-list" data-review-list></div>
+        <div class="dashboard-stats" data-dashboard-stats></div>
+
+        <div class="studio-layout">
+          <section class="review-spotlight" aria-labelledby="spotlight-title">
+            <div class="studio-section-heading">
+              <div>
+                <p class="kicker">Review spotlight</p>
+                <h2 id="spotlight-title"><span aria-hidden="true">◇</span> Next heart</h2>
+              </div>
+              <span data-spotlight-count></span>
+            </div>
+            <div data-spotlight-heart></div>
             <p class="empty-state hidden" data-empty-review>
-              The review queue is clear.
+              The review queue is clear. Nothing needs your attention right now.
             </p>
           </section>
-          <section>
-            <h2>Recent Decisions</h2>
-            <div class="decision-list" data-decision-list></div>
-            <p class="empty-state hidden" data-empty-decisions>
-              No decisions yet.
-            </p>
-          </section>
+
+          <aside class="studio-sidebar">
+            <section class="queue-panel" aria-labelledby="queue-title">
+              <div class="studio-section-heading compact">
+                <h2 id="queue-title"><span aria-hidden="true">⌁</span> Queue</h2>
+                <span data-queue-count></span>
+              </div>
+              <div class="review-list" data-review-list></div>
+            </section>
+
+            <section class="activity-panel" aria-labelledby="activity-title">
+              <div class="studio-section-heading compact">
+                <h2 id="activity-title"><span aria-hidden="true">↳</span> Recent care</h2>
+              </div>
+              <div class="decision-list" data-decision-list></div>
+              <p class="empty-state hidden" data-empty-decisions>
+                No decisions yet.
+              </p>
+            </section>
+          </aside>
+        </div>
+
+        <section class="dashboard-note" aria-label="Dashboard note">
+          <p>
+            Good systems protect the mood. Review slowly, approve generously,
+            and keep the archive true to what it is.
+          </p>
+        </section>
+      </section>
+    </template>
+
+    <template id="access-denied-template">
+      <section class="auth-page" aria-labelledby="access-denied-title">
+        <div class="auth-card">
+          <p class="kicker">Private room</p>
+          <h1 id="access-denied-title">This part is for the archive team.</h1>
+          <p>
+            You are signed in, but this account is not set as an admin or
+            project assistant yet.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#/">
+              Browse the Archive <span class="button-icon" aria-hidden="true">→</span>
+            </a>
+            <button class="button secondary" type="button" data-denied-sign-out>
+              Sign out
+            </button>
+          </div>
         </div>
       </section>
     </template>
 
-    <script defer src="./src/app.js"></script>
+    <script defer src="./src/app.js?v=2026-07-17-footer-hearts-tight"></script>
   </body>
 </html>

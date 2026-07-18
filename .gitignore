@@ -1,4 +1,7 @@
 node_modules/
 .heart-archive-git/
+supabase/.temp/
+.env
+.env.*
 .DS_Store
 *.log
