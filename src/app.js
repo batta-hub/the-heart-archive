@@ -626,10 +626,17 @@ async function renderSubmit() {
 
     const formData = new FormData(form);
     const location = String(formData.get("location") || "").trim();
+    const title = String(formData.get("title") || "").trim();
 
     if (!location) {
       status.textContent = "Tell us where this heart found you.";
       form.elements.location?.focus();
+      return;
+    }
+
+    if (!title) {
+      status.textContent = "Give your heart a title.";
+      form.elements.title?.focus();
       return;
     }
 
@@ -656,7 +663,7 @@ async function renderSubmit() {
 async function submitHeartToConverter(formData, file) {
   const payload = new FormData();
   payload.append("image", file);
-  payload.append("title", String(formData.get("title") || ""));
+  payload.append("title", String(formData.get("title") || "").trim());
   payload.append("note", String(formData.get("note") || ""));
   payload.append("location", String(formData.get("location") || "").trim());
   payload.append("visibility", "public");

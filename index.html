@@ -8,7 +8,7 @@
       content="The Heart Archive is a calm online archive of accidental heart shapes found in the world."
     />
     <title>The Heart Archive</title>
-    <link rel="stylesheet" href="./src/styles.css?v=2026-07-18-share-spacing" />
+    <link rel="stylesheet" href="./src/styles.css?v=2026-07-18-share-breathing" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -171,14 +171,14 @@
         </div>
 
         <form class="submission-form" data-submission-form>
-          <fieldset class="share-step photo-step">
-            <legend class="step-heading">
+          <div class="share-step photo-step" role="group" aria-labelledby="photo-step-title">
+            <div class="step-heading">
               <span class="step-number" aria-hidden="true">1</span>
               <span>
-                <strong>Bring the heart</strong>
-                <small>Choose the photo that made you pause.</small>
+                <h2 id="photo-step-title">Bring the heart</h2>
+                <p>Choose the photo that made you pause.</p>
               </span>
-            </legend>
+            </div>
             <label class="upload-box">
               <span class="upload-prompt" data-upload-prompt>
                 <span class="upload-heart" aria-hidden="true">&#9829;</span>
@@ -193,13 +193,13 @@
                 required
               />
             </label>
-          </fieldset>
+          </div>
 
-          <fieldset class="share-step">
-            <legend class="step-heading">
+          <div class="share-step" role="group" aria-labelledby="location-step-title">
+            <div class="step-heading">
               <span class="step-number" aria-hidden="true">2</span>
-              <strong>Where did you find it?</strong>
-            </legend>
+              <h2 id="location-step-title">Where did you find it?</h2>
+            </div>
             <label>
               <span class="visually-hidden">Location</span>
               <input
@@ -210,17 +210,22 @@
                 required
               />
             </label>
-          </fieldset>
+          </div>
 
-          <fieldset class="share-step">
-            <legend class="step-heading">
+          <div class="share-step" role="group" aria-labelledby="story-step-title">
+            <div class="step-heading">
               <span class="step-number" aria-hidden="true">3</span>
-              <strong>Tell us more!</strong>
-            </legend>
-            <div class="form-grid">
+              <h2 id="story-step-title">Tell us more!</h2>
+            </div>
+            <div class="form-grid story-fields">
               <label>
-                <span>Title <em>optional</em></span>
-                <input name="title" maxlength="80" placeholder="A heart after the rain" />
+                <span>Title</span>
+                <input
+                  name="title"
+                  maxlength="80"
+                  placeholder="A heart after the rain"
+                  required
+                />
               </label>
 
               <label>
@@ -233,7 +238,7 @@
                 ></textarea>
               </label>
             </div>
-          </fieldset>
+          </div>
 
           <div class="form-actions">
             <button class="button primary" type="submit">
@@ -434,6 +439,6 @@
       </section>
     </template>
 
-    <script defer src="./src/app.js?v=2026-07-18-share-spacing"></script>
+    <script defer src="./src/app.js?v=2026-07-18-share-breathing"></script>
   </body>
 </html>
