@@ -604,16 +604,20 @@ async function renderSubmit() {
       preview.removeAttribute("src");
       preview.classList.add("hidden");
       prompt.classList.remove("hidden");
-      prompt.textContent = `iPhone photo selected: ${file.name}`;
+      prompt.innerHTML = `
+        <span class="upload-heart" aria-hidden="true">&#9829;</span>
+        <strong>Your iPhone photo is selected</strong>
+        <small>${escapeHtml(file.name)}</small>
+      `;
       status.textContent =
-        "We cannot preview this format in the browser, but it can still be shared.";
+        "A preview is not available here, but your photo can still be shared.";
       return;
     }
 
     preview.src = URL.createObjectURL(file);
     preview.classList.remove("hidden");
     prompt.classList.add("hidden");
-    status.textContent = "Photo ready to submit.";
+    status.textContent = "Lovely. Your photo is ready.";
   });
 
   form.addEventListener("submit", async (event) => {
@@ -624,24 +628,24 @@ async function renderSubmit() {
     const location = String(formData.get("location") || "").trim();
 
     if (!location) {
-      status.textContent = "Please add where you found this heart.";
+      status.textContent = "Tell us where this heart found you.";
       form.elements.location?.focus();
       return;
     }
 
     submitButton.disabled = true;
-    submitButton.textContent = "Sharing...";
-    status.textContent = "Sharing your heart with the archive.";
+    submitButton.textContent = "Adding your heart...";
+    status.textContent = "Making a place for your heart in the archive.";
 
     try {
       await submitHeartToConverter(formData, selectedFile);
-      status.textContent = "Shared. Taking you to the confirmation page.";
+      status.textContent = "Your heart is safely with us.";
       window.location.hash = "#/confirmation";
     } catch (error) {
       console.error(error);
       status.textContent = error.message
-        ? `Sharing failed: ${error.message}`
-        : "Something went wrong while sharing. Please try again in a moment.";
+        ? `We couldn't share this one just yet: ${error.message}`
+        : "We couldn't share this one just yet. Please try again in a moment.";
       submitButton.disabled = false;
       submitButton.innerHTML =
         '<span class="button-icon" aria-hidden="true">♥</span> Share a Heart';

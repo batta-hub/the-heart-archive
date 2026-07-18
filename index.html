@@ -8,7 +8,7 @@
       content="The Heart Archive is a calm online archive of accidental heart shapes found in the world."
     />
     <title>The Heart Archive</title>
-    <link rel="stylesheet" href="./src/styles.css?v=2026-07-17-footer-hearts-tight" />
+    <link rel="stylesheet" href="./src/styles.css?v=2026-07-18-warmer-share" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -158,57 +158,99 @@
     <template id="submit-template">
       <section class="submit-page" aria-labelledby="submit-title">
         <div class="form-intro">
-          <p class="kicker">Share</p>
-          <h1 id="submit-title">Share a Heart</h1>
+          <p class="kicker">A small act of noticing</p>
+          <h1 id="submit-title">Let's add your heart to the archive.</h1>
           <p>
-            Share a found heart with the archive. Add the place where it was
-            found so it can join the map.
+            You noticed something lovely. Share it here, and it becomes part of
+            a collection made by people who are looking a little closer.
+          </p>
+          <p class="contribution-note">
+            <span aria-hidden="true">&#9829;</span>
+            Every heart adds a little more love to the map.
           </p>
         </div>
 
         <form class="submission-form" data-submission-form>
-          <label class="upload-box">
-            <span class="upload-prompt" data-upload-prompt>Choose photo</span>
-            <img class="upload-preview hidden" alt="" data-upload-preview />
-            <input
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.heic,.heif"
-              name="image"
-              required
-            />
-          </label>
+          <fieldset class="share-step photo-step">
+            <legend class="step-heading">
+              <span class="step-number" aria-hidden="true">1</span>
+              <span>
+                <strong>Bring the heart</strong>
+                <small>Choose the photo that made you pause.</small>
+              </span>
+            </legend>
+            <label class="upload-box">
+              <span class="upload-prompt" data-upload-prompt>
+                <span class="upload-heart" aria-hidden="true">&#9829;</span>
+                <strong>Choose a photo</strong>
+                <small>JPG, PNG, WebP, and iPhone photos are welcome.</small>
+              </span>
+              <img class="upload-preview hidden" alt="Selected heart" data-upload-preview />
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.heic,.heif"
+                name="image"
+                required
+              />
+            </label>
+          </fieldset>
 
-          <label>
-            <span>Title <em>optional</em></span>
-            <input name="title" maxlength="80" placeholder="Sidewalk after rain" />
-          </label>
+          <fieldset class="share-step">
+            <legend class="step-heading">
+              <span class="step-number" aria-hidden="true">2</span>
+              <span>
+                <strong>Where did it find you?</strong>
+                <small>A city and country is plenty.</small>
+              </span>
+            </legend>
+            <label>
+              <span>Location</span>
+              <input
+                name="location"
+                maxlength="80"
+                placeholder="Boston, USA"
+                autocomplete="address-level2"
+                required
+              />
+            </label>
+          </fieldset>
 
-          <label>
-            <span>Note <em>optional</em></span>
-            <textarea
-              name="note"
-              rows="4"
-              maxlength="240"
-              placeholder="A small heart I noticed on the walk home."
-            ></textarea>
-          </label>
+          <fieldset class="share-step">
+            <legend class="step-heading">
+              <span class="step-number" aria-hidden="true">3</span>
+              <span>
+                <strong>Add a few words</strong>
+                <small>Only if you feel like it.</small>
+              </span>
+            </legend>
+            <div class="form-grid">
+              <label>
+                <span>Give it a title <em>optional</em></span>
+                <input name="title" maxlength="80" placeholder="A heart after the rain" />
+              </label>
 
-          <label>
-            <span>Location</span>
-            <input
-              name="location"
-              maxlength="80"
-              placeholder="Brooklyn, NY"
-              required
-            />
-          </label>
+              <label>
+                <span>Tell us about the moment <em>optional</em></span>
+                <textarea
+                  name="note"
+                  rows="4"
+                  maxlength="240"
+                  placeholder="What made you stop and notice?"
+                ></textarea>
+              </label>
+            </div>
+          </fieldset>
 
           <div class="form-actions">
             <button class="button primary" type="submit">
               <span class="button-icon" aria-hidden="true">♥</span> Share a Heart
             </button>
-            <a class="button secondary" href="#/">Cancel</a>
+            <a class="button secondary" href="#/">Not right now</a>
           </div>
+          <p class="sharing-promise">
+            Shared without your name. Every heart is looked at with care before
+            it joins the public archive.
+          </p>
           <p class="form-status" data-form-status role="status"></p>
         </form>
       </section>
@@ -216,18 +258,20 @@
 
     <template id="confirmation-template">
       <section class="confirmation-page" aria-labelledby="confirmation-title">
-        <p class="kicker">Awaiting review</p>
-        <h1 id="confirmation-title">Thank you.</h1>
+        <span class="confirmation-heart" aria-hidden="true">♥</span>
+        <p class="kicker">Heart received</p>
+        <h1 id="confirmation-title">Thank you for looking closer.</h1>
         <p>
-          Your heart has been added to the review queue. If approved, it will
-          appear in the archive soon.
+          Your photo is safely with us. We'll look at it with care, and once it
+          is approved, it will become part of the archive for someone else to
+          discover.
         </p>
         <div class="hero-actions">
           <a class="button primary" href="#/">
             Browse the Archive <span class="button-icon" aria-hidden="true">→</span>
           </a>
           <a class="button secondary" href="#/submit">
-            <span class="button-icon" aria-hidden="true">♥</span> Share a Heart
+            <span class="button-icon" aria-hidden="true">♥</span> Share Another
           </a>
         </div>
       </section>
@@ -396,6 +440,6 @@
       </section>
     </template>
 
-    <script defer src="./src/app.js?v=2026-07-18-home-entry"></script>
+    <script defer src="./src/app.js?v=2026-07-18-warmer-share"></script>
   </body>
 </html>
