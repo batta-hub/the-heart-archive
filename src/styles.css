@@ -1069,6 +1069,10 @@ h3 {
   gap: 1.15rem;
 }
 
+.story-step {
+  border-bottom: 0;
+}
+
 .share-step .form-grid label {
   align-content: start;
 }
