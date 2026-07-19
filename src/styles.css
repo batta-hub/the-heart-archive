@@ -655,7 +655,8 @@ h3 {
 .moderation-page,
 .detail-page,
 .auth-page,
-.confirmation-page {
+.confirmation-page,
+.my-archive-page {
   padding-top: 0.4rem;
 }
 
@@ -663,7 +664,8 @@ h3 {
 .about-page h1,
 .moderation-page h1,
 .auth-page h1,
-.confirmation-page h1 {
+.confirmation-page h1,
+.my-archive-page h1 {
   max-width: 680px;
   font-size: clamp(2.15rem, 3.4vw, 3rem);
   line-height: 1.05;
@@ -673,7 +675,8 @@ h3 {
 .about-page .kicker,
 .moderation-page .kicker,
 .auth-page .kicker,
-.confirmation-page .kicker {
+.confirmation-page .kicker,
+.my-archive-page .kicker {
   margin-bottom: 0.65rem;
 }
 
@@ -911,6 +914,30 @@ h3 {
   gap: 0;
   max-width: 900px;
   margin: clamp(1.5rem, 2.5vw, 2rem) auto 0;
+}
+
+.draft-resume {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  color: var(--rose-deep);
+  background: rgba(184, 107, 107, 0.07);
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 650;
+  text-align: center;
+}
+
+.draft-resume span {
+  color: var(--rose);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.draft-resume p {
+  margin: 0;
 }
 
 .share-step {
@@ -1301,6 +1328,311 @@ textarea {
   border-radius: 8px;
   background: rgba(255, 253, 248, 0.84);
   color: var(--ink);
+}
+
+.my-archive-page {
+  width: min(1080px, 100%);
+  margin: 0 auto;
+}
+
+.my-archive-welcome {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(2.2rem, 6vw, 5rem) 0 clamp(2.8rem, 7vw, 5.8rem);
+  text-align: center;
+}
+
+.my-archive-welcome .kicker,
+.my-archive-welcome h1,
+.my-archive-welcome p {
+  margin: 0;
+}
+
+.my-archive-welcome h1 {
+  font-size: clamp(2.4rem, 5vw, 4.25rem);
+  line-height: 1.05;
+}
+
+.my-archive-welcome h1 span {
+  color: var(--rose-deep);
+}
+
+.my-archive-welcome > p:not(.kicker) {
+  max-width: 580px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.my-archive-welcome .button {
+  margin-top: 0.45rem;
+}
+
+.my-draft-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  padding: 1.15rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.my-draft-heart {
+  display: grid;
+  place-items: center;
+  width: 2.65rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(184, 107, 107, 0.28);
+  border-radius: 50%;
+  color: var(--rose);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+}
+
+.my-draft-card .kicker,
+.my-draft-card h2,
+.my-draft-card p {
+  margin: 0;
+}
+
+.my-draft-card .kicker {
+  margin-bottom: 0.25rem;
+  font-size: 0.7rem;
+}
+
+.my-draft-card h2 {
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+}
+
+.my-draft-card div > p:not(.kicker) {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.my-hearts-section {
+  padding: 0 0 clamp(3rem, 7vw, 5.5rem);
+}
+
+.my-hearts-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.my-hearts-heading .kicker,
+.my-hearts-heading h2,
+.my-hearts-heading > p {
+  margin: 0;
+}
+
+.my-hearts-heading h2 {
+  margin-top: 0.45rem;
+  font-size: clamp(1.8rem, 3.6vw, 2.65rem);
+}
+
+.my-hearts-heading > p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.my-archive-filters {
+  display: inline-flex;
+  gap: 0.3rem;
+  margin: 1.5rem 0 1.8rem;
+  padding: 0.3rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(243, 238, 230, 0.5);
+}
+
+.my-archive-filters button {
+  min-height: 38px;
+  padding: 0.48rem 0.8rem;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.my-archive-filters button.active {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 7px 16px rgba(68, 48, 34, 0.07);
+}
+
+.my-heart-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2vw, 1.25rem);
+}
+
+.my-heart-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(229, 221, 211, 0.88);
+  border-radius: 8px;
+  background: rgba(255, 253, 248, 0.72);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.my-heart-card:hover,
+.my-heart-card:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(68, 48, 34, 0.1);
+}
+
+.my-heart-media,
+.my-heart-media img,
+.my-heart-placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.my-heart-media {
+  overflow: hidden;
+  background: var(--surface-warm);
+}
+
+.my-heart-media img {
+  object-fit: cover;
+  transition: transform 220ms ease;
+}
+
+.my-heart-card:hover .my-heart-media img,
+.my-heart-card:focus-within .my-heart-media img {
+  transform: scale(1.015);
+}
+
+.my-heart-placeholder {
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.my-heart-body {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.9rem;
+}
+
+.my-heart-body h3,
+.my-heart-body p {
+  margin: 0;
+}
+
+.my-heart-body h3 {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-size: 0.98rem;
+  overflow-wrap: anywhere;
+}
+
+.my-heart-body p {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.my-heart-status {
+  justify-self: start;
+  padding: 0.28rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.my-heart-status-archive {
+  background: rgba(124, 138, 106, 0.12);
+  color: #627052;
+}
+
+.my-heart-status-waiting {
+  background: rgba(184, 107, 107, 0.1);
+  color: var(--rose-deep);
+}
+
+.my-heart-status-private {
+  background: rgba(116, 107, 100, 0.09);
+  color: var(--muted);
+}
+
+.my-archive-empty {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  min-height: 300px;
+  align-content: center;
+  text-align: center;
+}
+
+.my-archive-empty > span {
+  color: rgba(184, 107, 107, 0.72);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+}
+
+.my-archive-empty h3,
+.my-archive-empty p {
+  margin: 0;
+}
+
+.my-archive-empty h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.55rem;
+}
+
+.my-archive-empty p {
+  max-width: 460px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.my-account-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.my-account-footer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.account-sign-out {
+  flex: 0 0 auto;
+  padding: 0.45rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25em;
+  cursor: pointer;
+}
+
+.account-sign-out:hover,
+.account-sign-out:focus-visible {
+  color: var(--ink);
+  text-decoration-color: currentColor;
 }
 
 .dashboard-hero {
@@ -1909,7 +2241,8 @@ textarea {
   .about-page h1,
   .moderation-page h1,
   .auth-page h1,
-  .confirmation-page h1 {
+  .confirmation-page h1,
+  .my-archive-page h1 {
     font-size: clamp(2rem, 8vw, 2.65rem);
   }
 
@@ -1979,6 +2312,14 @@ textarea {
     column-count: 2;
   }
 
+  .my-heart-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .my-archive-welcome {
+    padding-top: 1.5rem;
+  }
+
   .section-heading {
     align-items: start;
     flex-direction: column;
@@ -2024,6 +2365,41 @@ textarea {
 
   .heart-grid {
     column-count: 1;
+  }
+
+  .my-heart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .my-hearts-heading,
+  .my-account-footer {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .my-hearts-heading > p {
+    white-space: normal;
+  }
+
+  .my-archive-filters {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .my-archive-filters button {
+    min-width: 0;
+    padding-right: 0.4rem;
+    padding-left: 0.4rem;
+  }
+
+  .my-draft-card {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .my-draft-card .button {
+    grid-column: 1 / -1;
+    width: 100%;
   }
 
   .preview-grid .heart-card {

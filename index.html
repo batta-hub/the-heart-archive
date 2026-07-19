@@ -8,7 +8,7 @@
       content="The Heart Archive is a calm online archive of accidental heart shapes found in the world."
     />
     <title>The Heart Archive</title>
-    <link rel="stylesheet" href="./src/styles.css?v=2026-07-19-confirmation-spacing" />
+    <link rel="stylesheet" href="./src/styles.css?v=2026-07-19-my-archive" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -19,7 +19,7 @@
         <a href="#/submit">Share</a>
         <a href="#/about">About</a>
         <a class="hidden" href="#/moderation" data-review-link>Review</a>
-        <a href="#/auth/submit" data-account-link data-account-surface="header">
+        <a href="#/auth/my-archive" data-account-link data-account-surface="header">
           Sign in
         </a>
       </nav>
@@ -36,7 +36,7 @@
           <a href="#/">Archive</a>
           <a href="#/submit">Share</a>
           <a href="#/about">About</a>
-          <a href="#/auth/submit" data-account-link data-account-surface="footer">
+          <a href="#/auth/my-archive" data-account-link data-account-surface="footer">
             Sign in
           </a>
         </nav>
@@ -162,6 +162,10 @@
         </div>
 
         <form class="submission-form" data-submission-form>
+          <div class="draft-resume hidden" data-draft-resume role="status">
+            <span aria-hidden="true">♥</span>
+            <p>Welcome back. Your words are saved; choose your photo to continue.</p>
+          </div>
           <div class="share-step photo-step" role="group" aria-label="Upload a photo">
             <label class="upload-box">
               <span class="upload-prompt" data-upload-prompt>
@@ -258,8 +262,8 @@
           Your photo will be reviewed before being displayed in the public archive.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#/">
-            Browse the Archive <span class="button-icon" aria-hidden="true">→</span>
+          <a class="button primary" href="#/my-archive">
+            My Archive <span class="button-icon" aria-hidden="true">→</span>
           </a>
           <a class="button secondary" href="#/submit">
             <span class="button-icon" aria-hidden="true">♥</span> Share Another
@@ -272,8 +276,8 @@
       <section class="auth-page" aria-labelledby="auth-title">
         <div class="auth-card">
           <p class="kicker">Account</p>
-          <h1 id="auth-title">Sign in to share a heart.</h1>
-          <p>
+          <h1 id="auth-title" data-auth-title>Sign in to share a heart.</h1>
+          <p data-auth-copy>
             The archive stays anonymous. Your email is only used so the review
             room knows each shared heart came from a real person.
           </p>
@@ -284,6 +288,16 @@
           </div>
 
           <form class="auth-form" data-auth-form>
+            <label data-signup-name hidden>
+              <span>First name</span>
+              <input
+                name="display_name"
+                type="text"
+                autocomplete="given-name"
+                maxlength="40"
+                disabled
+              />
+            </label>
             <label>
               <span>Email</span>
               <input name="email" type="email" autocomplete="email" required />
@@ -302,6 +316,65 @@
             <p class="form-status" data-auth-status role="status"></p>
           </form>
         </div>
+      </section>
+    </template>
+
+    <template id="my-archive-template">
+      <section class="my-archive-page" aria-labelledby="my-archive-title">
+        <header class="my-archive-welcome">
+          <p class="kicker">My Archive</p>
+          <h1 id="my-archive-title">Hello, <span data-member-name>friend</span>.</h1>
+          <p>
+            Your little corner of the archive. The hearts you noticed, gathered
+            in one place.
+          </p>
+          <a class="button primary" href="#/submit">
+            <span class="button-icon" aria-hidden="true">♥</span> Share a Heart
+          </a>
+        </header>
+
+        <aside class="my-draft-card hidden" data-my-draft aria-labelledby="draft-title">
+          <span class="my-draft-heart" aria-hidden="true">♡</span>
+          <div>
+            <p class="kicker">Still with you</p>
+            <h2 id="draft-title">Continue where you left off.</h2>
+            <p>Your words are saved on this device.</p>
+          </div>
+          <a class="button secondary" href="#/submit">
+            Continue <span class="button-icon" aria-hidden="true">→</span>
+          </a>
+        </aside>
+
+        <section class="my-hearts-section" aria-labelledby="my-hearts-title">
+          <div class="my-hearts-heading">
+            <div>
+              <p class="kicker">Your collection</p>
+              <h2 id="my-hearts-title">Hearts you have shared</h2>
+            </div>
+            <p data-my-heart-count></p>
+          </div>
+
+          <div class="my-archive-filters" role="group" aria-label="Filter your hearts">
+            <button class="active" type="button" data-my-filter="all">All</button>
+            <button type="button" data-my-filter="waiting">Waiting</button>
+            <button type="button" data-my-filter="archive">In the Archive</button>
+          </div>
+
+          <div class="my-heart-grid" data-my-heart-grid></div>
+          <div class="my-archive-empty hidden" data-my-archive-empty>
+            <span aria-hidden="true">♡</span>
+            <h3>Your first heart can begin here.</h3>
+            <p>Whenever something makes you pause, this corner will be waiting.</p>
+            <a class="button primary" href="#/submit">
+              <span class="button-icon" aria-hidden="true">♥</span> Share your first heart
+            </a>
+          </div>
+        </section>
+
+        <footer class="my-account-footer">
+          <p>Your contributions stay anonymous everywhere else in the archive.</p>
+          <button class="account-sign-out" type="button" data-my-sign-out>Sign out</button>
+        </footer>
       </section>
     </template>
 
@@ -431,6 +504,6 @@
       </section>
     </template>
 
-    <script defer src="./src/app.js?v=2026-07-19-share-preview"></script>
+    <script defer src="./src/app.js?v=2026-07-19-my-archive"></script>
   </body>
 </html>

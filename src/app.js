@@ -4,6 +4,7 @@ const HEART_PHOTOS_BUCKET = "heart-photos";
 const CONVERT_HEART_ENDPOINT = `${SUPABASE_URL}/functions/v1/convert-heart`;
 const AUTH_EMAIL_REDIRECT_URL = "https://batta-hub.github.io/the-heart-archive/";
 const AUTH_STORAGE_KEY = "heartArchive.session.v1";
+const SHARE_DRAFT_KEY_PREFIX = "heartArchive.shareDraft.v1";
 
 let approvedHeartsCache = [];
 let currentSession = readStoredSession();
@@ -126,6 +127,51 @@ function clearSession() {
   window.localStorage.removeItem(AUTH_STORAGE_KEY);
 }
 
+function shareDraftKey() {
+  const userId = currentSession?.user?.id;
+  return userId ? `${SHARE_DRAFT_KEY_PREFIX}.${userId}` : "";
+}
+
+function readShareDraft() {
+  const key = shareDraftKey();
+  if (!key) return null;
+
+  try {
+    const draft = JSON.parse(window.localStorage.getItem(key));
+    if (!draft || typeof draft !== "object") return null;
+    if (![draft.location, draft.title, draft.note].some((value) => String(value || "").trim())) {
+      return null;
+    }
+    return draft;
+  } catch {
+    return null;
+  }
+}
+
+function saveShareDraft({ location, title, note }) {
+  const key = shareDraftKey();
+  if (!key) return;
+
+  const draft = {
+    location: String(location || ""),
+    title: String(title || ""),
+    note: String(note || ""),
+    updatedAt: new Date().toISOString(),
+  };
+
+  if (![draft.location, draft.title, draft.note].some((value) => value.trim())) {
+    window.localStorage.removeItem(key);
+    return;
+  }
+
+  window.localStorage.setItem(key, JSON.stringify(draft));
+}
+
+function clearShareDraft() {
+  const key = shareDraftKey();
+  if (key) window.localStorage.removeItem(key);
+}
+
 function hasUsableSession() {
   return Boolean(currentSession?.access_token);
 }
@@ -159,7 +205,7 @@ async function fetchCurrentProfile() {
   if (currentProfile) return currentProfile;
 
   const query = new URLSearchParams({
-    select: "id,email,role",
+    select: "id,email,display_name,role",
     id: `eq.${currentSession.user.id}`,
     limit: "1",
   });
@@ -210,22 +256,10 @@ async function syncNavigation() {
   });
 
   accountLinks.forEach((link) => {
-    const isHeaderLink = link.dataset.accountSurface === "header";
-    link.classList.toggle("hidden", isHeaderLink && isStaff);
-    link.textContent = session ? "Sign out" : "Sign in";
-    link.href = session ? "#/" : "#/auth/submit";
+    link.classList.remove("hidden");
+    link.textContent = session ? "My Archive" : "Sign in";
+    link.href = session ? "#/my-archive" : "#/auth/my-archive";
     link.dataset.accountState = session ? "signed-in" : "signed-out";
-  });
-}
-
-function setupAccountLinks() {
-  document.querySelectorAll("[data-account-link]").forEach((link) => {
-    link.addEventListener("click", async (event) => {
-      if (link.dataset.accountState !== "signed-in") return;
-      event.preventDefault();
-      await signOut();
-      window.location.hash = "#/";
-    });
   });
 }
 
@@ -240,6 +274,22 @@ async function fetchApprovedHearts() {
   const rows = await supabaseRequest(`/rest/v1/hearts?${query}`);
   approvedHeartsCache = rows.map(mapHeartRow);
   return approvedHeartsCache;
+}
+
+async function fetchMyHearts() {
+  await ensureSession();
+  const userId = currentSession?.user?.id;
+  if (!userId) return [];
+
+  const query = new URLSearchParams({
+    select:
+      "id,title,note,image_original_path,image_display_path,image_thumbnail_path,location_label,location_visibility,status,submitted_at,conversion_status",
+    submitter_id: `eq.${userId}`,
+    order: "submitted_at.desc",
+  });
+
+  const rows = await authenticatedRequest(`/rest/v1/hearts?${query}`);
+  return rows.map(mapHeartRow);
 }
 
 async function fetchHeartById(id) {
@@ -590,6 +640,7 @@ async function renderSubmit() {
   const uploadBox = app.querySelector(".upload-box");
   const preview = app.querySelector("[data-upload-preview]");
   const prompt = app.querySelector("[data-upload-prompt]");
+  const draftNotice = app.querySelector("[data-draft-resume]");
   const status = app.querySelector("[data-form-status]");
   const locationStep = app.querySelector("[data-location-step]");
   const storyStep = app.querySelector("[data-story-step]");
@@ -598,7 +649,23 @@ async function renderSubmit() {
   const titleInput = form.elements.title;
   const noteInput = form.elements.note;
   const submitButton = form.querySelector('button[type="submit"]');
+  const savedDraft = readShareDraft();
   let selectedFile = null;
+
+  if (savedDraft) {
+    locationInput.value = savedDraft.location || "";
+    titleInput.value = savedDraft.title || "";
+    noteInput.value = savedDraft.note || "";
+    draftNotice.classList.remove("hidden");
+  }
+
+  function preserveDraft() {
+    saveShareDraft({
+      location: locationInput.value,
+      title: titleInput.value,
+      note: noteInput.value,
+    });
+  }
 
   function syncShareProgress() {
     const hasPhoto = Boolean(selectedFile);
@@ -622,6 +689,7 @@ async function renderSubmit() {
 
     selectedFile = file;
     status.textContent = "";
+    draftNotice.classList.add("hidden");
     const isHeic = isLikelyHeic(file);
 
     if (isHeic) {
@@ -647,8 +715,15 @@ async function renderSubmit() {
     syncShareProgress();
   });
 
-  locationInput.addEventListener("input", syncShareProgress);
-  titleInput.addEventListener("input", syncShareProgress);
+  locationInput.addEventListener("input", () => {
+    preserveDraft();
+    syncShareProgress();
+  });
+  titleInput.addEventListener("input", () => {
+    preserveDraft();
+    syncShareProgress();
+  });
+  noteInput.addEventListener("input", preserveDraft);
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -676,6 +751,7 @@ async function renderSubmit() {
 
     try {
       await submitHeartToConverter(formData, selectedFile);
+      clearShareDraft();
       status.textContent = "Your heart is safely with us.";
       window.location.hash = "#/confirmation";
     } catch (error) {
@@ -735,7 +811,12 @@ function renderAuth(nextPath = "submit") {
   const status = app.querySelector("[data-auth-status]");
   const submitButton = form.querySelector('button[type="submit"]');
   const passwordInput = form.elements.password;
+  const nameField = app.querySelector("[data-signup-name]");
+  const nameInput = form.elements.display_name;
+  const title = app.querySelector("[data-auth-title]");
+  const copy = app.querySelector("[data-auth-copy]");
   const modeButtons = app.querySelectorAll("[data-auth-mode]");
+  const signingIntoMyArchive = nextPath === "my-archive";
   let mode = "signin";
 
   function setMode(nextMode) {
@@ -747,6 +828,20 @@ function renderAuth(nextPath = "submit") {
     });
     passwordInput.autocomplete =
       mode === "signin" ? "current-password" : "new-password";
+    const isSignup = mode === "signup";
+    nameField.hidden = !isSignup;
+    nameInput.disabled = !isSignup;
+    nameInput.required = isSignup;
+    title.textContent = isSignup
+      ? "Make a little place for your hearts."
+      : signingIntoMyArchive
+        ? "Sign in to your little corner."
+        : "Sign in to share a heart.";
+    copy.textContent = isSignup
+      ? "Your first name welcomes you inside My Archive. Everything you share stays anonymous in public."
+      : signingIntoMyArchive
+        ? "Your hearts are gathered privately here. Everything you share stays anonymous in public."
+        : "The archive stays anonymous. Your email is only used so the review room knows each shared heart came from a real person.";
     submitButton.textContent = mode === "signin" ? "Sign in" : "Create account";
     status.textContent = "";
   }
@@ -761,6 +856,13 @@ function renderAuth(nextPath = "submit") {
     const formData = new FormData(form);
     const email = String(formData.get("email") || "").trim();
     const password = String(formData.get("password") || "");
+    const displayName = String(formData.get("display_name") || "").trim();
+
+    if (mode === "signup" && !displayName) {
+      status.textContent = "Tell us your first name so your private archive can welcome you.";
+      nameInput.focus();
+      return;
+    }
 
     submitButton.disabled = true;
     status.textContent =
@@ -777,7 +879,11 @@ function renderAuth(nextPath = "submit") {
               `/auth/v1/signup?redirect_to=${encodeURIComponent(AUTH_EMAIL_REDIRECT_URL)}`,
               {
                 method: "POST",
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({
+                  email,
+                  password,
+                  data: { display_name: displayName },
+                }),
               },
             );
 
@@ -1142,6 +1248,148 @@ async function handleReviewDecision(id, status) {
   }
 }
 
+function myArchiveGroup(heart) {
+  if (heart.status === "approved") return "archive";
+  if (heart.status === "pending") return "waiting";
+  return "private";
+}
+
+function myArchiveStatus(heart) {
+  const group = myArchiveGroup(heart);
+  if (group === "archive") return "In the archive";
+  if (group === "waiting") return "Waiting with us";
+  return "Private to you";
+}
+
+function createMyHeartCard(heart) {
+  const card = document.createElement("article");
+  const group = myArchiveGroup(heart);
+  card.className = `my-heart-card my-heart-${group}`;
+
+  const media = document.createElement(heart.status === "approved" ? "a" : "div");
+  media.className = "my-heart-media";
+  if (heart.status === "approved") {
+    media.href = `#/heart/${heart.id}`;
+    media.setAttribute("aria-label", `View ${heart.title}`);
+  }
+
+  if (heart.image?.src) {
+    const image = document.createElement("img");
+    image.src = heart.image.src;
+    image.alt = heart.title || "Your shared heart";
+    image.loading = "lazy";
+    media.append(image);
+  } else {
+    const placeholder = document.createElement("span");
+    placeholder.className = "my-heart-placeholder";
+    applyPhotoStyle(placeholder, heart);
+    media.append(placeholder);
+  }
+
+  const body = document.createElement("div");
+  body.className = "my-heart-body";
+
+  const status = document.createElement("span");
+  status.className = `my-heart-status my-heart-status-${group}`;
+  status.textContent = myArchiveStatus(heart);
+
+  const title = document.createElement("h3");
+  title.textContent = heart.title || "Untitled heart";
+
+  const meta = document.createElement("p");
+  meta.textContent = metaForHeart(heart) || "A moment you noticed";
+
+  body.append(status, title, meta);
+  card.append(media, body);
+  return card;
+}
+
+async function renderMyArchive() {
+  const session = await ensureSession();
+  if (!session) {
+    window.location.hash = "#/auth/my-archive";
+    return;
+  }
+
+  app.replaceChildren(cloneTemplate("my-archive-template"));
+
+  const name = app.querySelector("[data-member-name]");
+  const count = app.querySelector("[data-my-heart-count]");
+  const grid = app.querySelector("[data-my-heart-grid]");
+  const empty = app.querySelector("[data-my-archive-empty]");
+  const draftCard = app.querySelector("[data-my-draft]");
+  const filters = app.querySelectorAll("[data-my-filter]");
+  const signOutButton = app.querySelector("[data-my-sign-out]");
+
+  count.textContent = "Gathering your hearts...";
+  draftCard.classList.toggle("hidden", !readShareDraft());
+
+  signOutButton.addEventListener("click", async () => {
+    signOutButton.disabled = true;
+    signOutButton.textContent = "Signing out...";
+    await signOut();
+    window.location.hash = "#/";
+  });
+
+  let profile = null;
+  let hearts = [];
+
+  try {
+    [profile, hearts] = await Promise.all([
+      fetchCurrentProfile(),
+      fetchMyHearts(),
+    ]);
+  } catch (error) {
+    console.error(error);
+    count.textContent = "Your corner is resting for a moment";
+    empty.classList.remove("hidden");
+    empty.querySelector("h3").textContent = "We could not gather your hearts just now.";
+    empty.querySelector("p").textContent = "Please come back in a little while.";
+    empty.querySelector("a").classList.add("hidden");
+    return;
+  }
+
+  name.textContent = profile?.display_name || "friend";
+  count.textContent = `${hearts.length} ${hearts.length === 1 ? "heart" : "hearts"} in your corner`;
+
+  function showHearts(filter = "all") {
+    const visible =
+      filter === "all"
+        ? hearts
+        : hearts.filter((heart) => myArchiveGroup(heart) === filter);
+
+    filters.forEach((button) => {
+      const isActive = button.dataset.myFilter === filter;
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+
+    grid.replaceChildren(...visible.map(createMyHeartCard));
+    empty.classList.toggle("hidden", visible.length > 0);
+
+    const heading = empty.querySelector("h3");
+    const message = empty.querySelector("p");
+    const action = empty.querySelector("a");
+
+    if (hearts.length === 0) {
+      heading.textContent = "Your first heart can begin here.";
+      message.textContent = "Whenever something makes you pause, this corner will be waiting.";
+      action.classList.remove("hidden");
+    } else {
+      heading.textContent =
+        filter === "archive" ? "None have joined the public archive yet." : "Nothing is waiting right now.";
+      message.textContent = "Your other hearts are still gathered safely here.";
+      action.classList.add("hidden");
+    }
+  }
+
+  filters.forEach((button) => {
+    button.addEventListener("click", () => showHearts(button.dataset.myFilter));
+  });
+
+  showHearts();
+}
+
 function renderAbout() {
   app.replaceChildren(cloneTemplate("about-template"));
 }
@@ -1168,6 +1416,8 @@ async function route() {
       renderAbout();
     } else if (path === "moderation") {
       renderModeration();
+    } else if (path === "my-archive") {
+      await renderMyArchive();
     } else if (path === "heart") {
       await renderDetail(id);
     } else {
@@ -1195,6 +1445,5 @@ window.addEventListener("hashchange", () => {
   route();
 });
 
-setupAccountLinks();
 normalizeSharedEntryRoute();
 route();

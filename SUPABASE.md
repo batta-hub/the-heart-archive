@@ -49,6 +49,8 @@ Signed-in contributors can:
 
 - share pending hearts
 - upload photos to `heart-photos`
+- privately view hearts where `hearts.submitter_id` matches their account
+- view and update their own profile, including the private `display_name` greeting
 
 Moderators/admins can:
 
@@ -64,6 +66,20 @@ Admins can:
 
 The public archive does not display names, usernames, or emails. Auth is used only
 to keep sharing and review trusted behind the scenes.
+
+Public archive requests can read approved hearts only and are not granted access
+to `hearts.submitter_id`. Signed-in contributors can read that ownership field,
+but row-level security limits them to their own hearts. Archive staff can read all
+hearts for review.
+
+`profiles.display_name` is collected as a first name during signup and is used
+only to welcome the signed-in member inside My Archive. It is never selected for
+public heart cards or public detail pages.
+
+Unfinished location, title, and note fields are saved under a user-specific key
+in that browser's local storage. The draft is cleared after a successful share.
+Photo files are not retained by this first draft-recovery layer, so a returning
+member chooses the photo again before continuing.
 
 ## Notes
 
