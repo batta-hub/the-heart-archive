@@ -8,7 +8,7 @@
       content="The Heart Archive is a calm online archive of accidental heart shapes found in the world."
     />
     <title>The Heart Archive</title>
-    <link rel="stylesheet" href="./src/styles.css?v=2026-07-18-share-clean" />
+    <link rel="stylesheet" href="./src/styles.css?v=2026-07-19-progressive-share" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -166,7 +166,7 @@
             <label class="upload-box">
               <span class="upload-prompt" data-upload-prompt>
                 <span class="upload-heart" aria-hidden="true">&#9829;</span>
-                <strong>Upload a photo</strong>
+                <strong>Upload your photo</strong>
                 <small>JPG, PNG, WebP, and iPhone photos are welcome.</small>
               </span>
               <img class="upload-preview hidden" alt="Selected heart" data-upload-preview />
@@ -179,7 +179,13 @@
             </label>
           </div>
 
-          <div class="share-step" role="group" aria-labelledby="location-step-title">
+          <div
+            class="share-step progressive-share-step"
+            role="group"
+            aria-labelledby="location-step-title"
+            data-location-step
+            hidden
+          >
             <div class="step-heading">
               <span class="step-number" aria-hidden="true">2</span>
               <h2 id="location-step-title">Where did you find it?</h2>
@@ -196,7 +202,13 @@
             </label>
           </div>
 
-          <div class="share-step" role="group" aria-labelledby="story-step-title">
+          <div
+            class="share-step progressive-share-step"
+            role="group"
+            aria-labelledby="story-step-title"
+            data-story-step
+            hidden
+          >
             <div class="step-heading">
               <span class="step-number" aria-hidden="true">3</span>
               <h2 id="story-step-title">Tell us more!</h2>
@@ -224,15 +236,17 @@
             </div>
           </div>
 
-          <div class="form-actions">
-            <button class="button primary" type="submit">
-              <span class="button-icon" aria-hidden="true">♥</span> Add to the Archive
-            </button>
+          <div class="share-submit-stage progressive-share-step" data-submit-step hidden>
+            <div class="form-actions">
+              <button class="button primary" type="submit">
+                <span class="button-icon" aria-hidden="true">♥</span> Add to the Archive
+              </button>
+            </div>
+            <p class="sharing-promise">
+              All contributions are anonymous. Your heart will be reviewed before
+              being displayed in the public archive.
+            </p>
           </div>
-          <p class="sharing-promise">
-            All contributions are anonymous. Your heart will be reviewed before
-            being displayed in the public archive.
-          </p>
           <p class="form-status" data-form-status role="status"></p>
         </form>
       </section>
@@ -422,6 +436,6 @@
       </section>
     </template>
 
-    <script defer src="./src/app.js?v=2026-07-18-share-final-action"></script>
+    <script defer src="./src/app.js?v=2026-07-19-progressive-share"></script>
   </body>
 </html>

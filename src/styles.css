@@ -1053,9 +1053,36 @@ h3 {
   min-height: 96px;
 }
 
-.submission-form > .form-actions {
+.share-submit-stage {
+  display: grid;
+  justify-items: center;
+}
+
+.share-submit-stage .form-actions {
   justify-content: center;
   margin-top: 1.25rem;
+}
+
+.progressive-share-step:not([hidden]) {
+  animation: shareStepReveal 280ms ease-out both;
+}
+
+@keyframes shareStepReveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.55rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressive-share-step:not([hidden]) {
+    animation: none;
+  }
 }
 
 .visually-hidden {

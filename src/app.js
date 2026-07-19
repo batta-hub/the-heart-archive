@@ -590,14 +590,37 @@ async function renderSubmit() {
   const preview = app.querySelector("[data-upload-preview]");
   const prompt = app.querySelector("[data-upload-prompt]");
   const status = app.querySelector("[data-form-status]");
+  const locationStep = app.querySelector("[data-location-step]");
+  const storyStep = app.querySelector("[data-story-step]");
+  const submitStep = app.querySelector("[data-submit-step]");
+  const locationInput = form.elements.location;
+  const titleInput = form.elements.title;
+  const noteInput = form.elements.note;
   const submitButton = form.querySelector('button[type="submit"]');
   let selectedFile = null;
+
+  function syncShareProgress() {
+    const hasPhoto = Boolean(selectedFile);
+    const hasLocation = hasPhoto && Boolean(locationInput.value.trim());
+    const hasTitle = hasLocation && Boolean(titleInput.value.trim());
+
+    locationStep.hidden = !hasPhoto;
+    storyStep.hidden = !hasLocation;
+    submitStep.hidden = !hasTitle;
+    locationInput.disabled = !hasPhoto;
+    titleInput.disabled = !hasLocation;
+    noteInput.disabled = !hasLocation;
+    submitButton.disabled = !hasTitle;
+  }
+
+  syncShareProgress();
 
   imageInput.addEventListener("change", () => {
     const [file] = imageInput.files;
     if (!file) return;
 
     selectedFile = file;
+    status.textContent = "";
     const isHeic = isLikelyHeic(file);
 
     if (isHeic) {
@@ -611,14 +634,18 @@ async function renderSubmit() {
       `;
       status.textContent =
         "A preview is not available here, but your photo can still be shared.";
+      syncShareProgress();
       return;
     }
 
     preview.src = URL.createObjectURL(file);
     preview.classList.remove("hidden");
     prompt.classList.add("hidden");
-    status.textContent = "Lovely. Your photo is ready.";
+    syncShareProgress();
   });
+
+  locationInput.addEventListener("input", syncShareProgress);
+  titleInput.addEventListener("input", syncShareProgress);
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
