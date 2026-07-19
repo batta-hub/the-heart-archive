@@ -8,7 +8,7 @@
       content="The Heart Archive is a calm online archive of accidental heart shapes found in the world."
     />
     <title>The Heart Archive</title>
-    <link rel="stylesheet" href="./src/styles.css?v=2026-07-19-progressive-share" />
+    <link rel="stylesheet" href="./src/styles.css?v=2026-07-19-share-preview" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -237,14 +237,14 @@
           </div>
 
           <div class="share-submit-stage progressive-share-step" data-submit-step hidden>
+            <p class="sharing-anonymity">All contributions are anonymous.</p>
             <div class="form-actions">
               <button class="button primary" type="submit">
                 <span class="button-icon" aria-hidden="true">♥</span> Add to the Archive
               </button>
             </div>
             <p class="sharing-promise">
-              All contributions are anonymous. Your heart will be reviewed before
-              being displayed in the public archive.
+              Your heart will be reviewed before being displayed in the public archive.
             </p>
           </div>
           <p class="form-status" data-form-status role="status"></p>
@@ -255,12 +255,10 @@
     <template id="confirmation-template">
       <section class="confirmation-page" aria-labelledby="confirmation-title">
         <span class="confirmation-heart" aria-hidden="true">♥</span>
-        <p class="kicker">Heart received</p>
-        <h1 id="confirmation-title">Thank you for looking closer.</h1>
+        <p class="kicker">Heart received!</p>
+        <h1 id="confirmation-title">Thank you for adding your touch of love to the archive</h1>
         <p>
-          Your photo is safely with us. We'll look at it with care, and once it
-          is approved, it will become part of the archive for someone else to
-          discover.
+          Your photo will be reviewed before being displayed in the public archive.
         </p>
         <div class="hero-actions">
           <a class="button primary" href="#/">
@@ -436,6 +434,6 @@
       </section>
     </template>
 
-    <script defer src="./src/app.js?v=2026-07-19-progressive-share"></script>
+    <script defer src="./src/app.js?v=2026-07-19-share-preview"></script>
   </body>
 </html>

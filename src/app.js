@@ -587,6 +587,7 @@ async function renderSubmit() {
 
   const form = app.querySelector("[data-submission-form]");
   const imageInput = form.elements.image;
+  const uploadBox = app.querySelector(".upload-box");
   const preview = app.querySelector("[data-upload-preview]");
   const prompt = app.querySelector("[data-upload-prompt]");
   const status = app.querySelector("[data-form-status]");
@@ -624,6 +625,7 @@ async function renderSubmit() {
     const isHeic = isLikelyHeic(file);
 
     if (isHeic) {
+      uploadBox.classList.remove("has-preview");
       preview.removeAttribute("src");
       preview.classList.add("hidden");
       prompt.classList.remove("hidden");
@@ -639,6 +641,7 @@ async function renderSubmit() {
     }
 
     preview.src = URL.createObjectURL(file);
+    uploadBox.classList.add("has-preview");
     preview.classList.remove("hidden");
     prompt.classList.add("hidden");
     syncShareProgress();
