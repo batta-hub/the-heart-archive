@@ -1337,12 +1337,13 @@ textarea {
 
 .my-archive-welcome {
   display: grid;
-  justify-items: center;
+  justify-items: start;
   gap: 1rem;
-  max-width: 760px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   padding: clamp(2.2rem, 6vw, 5rem) 0 clamp(2.8rem, 7vw, 5.8rem);
-  text-align: center;
+  text-align: left;
 }
 
 .my-archive-welcome .kicker,
@@ -1351,8 +1352,28 @@ textarea {
   margin: 0;
 }
 
+.my-archive-identity {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.85rem, 2vw, 1.25rem);
+}
+
+.my-archive-avatar {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: clamp(3.4rem, 6vw, 4.75rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(184, 107, 107, 0.36);
+  border-radius: 50%;
+  color: var(--rose);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.15rem, 2.1vw, 1.55rem);
+  background: rgba(255, 253, 248, 0.72);
+}
+
 .my-archive-welcome h1 {
-  font-size: clamp(2.4rem, 5vw, 4.25rem);
+  font-size: clamp(2.15rem, 4vw, 3.3rem);
   line-height: 1.05;
 }
 
@@ -1361,7 +1382,7 @@ textarea {
 }
 
 .my-archive-welcome > p:not(.kicker) {
-  max-width: 580px;
+  max-width: 680px;
   color: var(--muted);
   font-size: clamp(1rem, 1.6vw, 1.15rem);
   line-height: 1.7;
