@@ -838,7 +838,6 @@ h3 {
 .submit-page {
   width: min(960px, 100%);
   margin: 0 auto;
-  padding-top: 0;
 }
 
 .submit-page .form-intro {
@@ -853,26 +852,6 @@ h3 {
   max-width: 680px;
   margin-right: auto;
   margin-left: auto;
-}
-
-.share-upload-band {
-  width: 100vw;
-  margin-top: calc(0px - clamp(2rem, 3.8vw, 3rem));
-  margin-left: calc(50% - 50vw);
-  padding: clamp(3rem, 6vw, 5rem) 5vw clamp(2.6rem, 5vw, 4rem);
-  background:
-    linear-gradient(180deg, rgba(255, 253, 248, 0.48), rgba(255, 253, 248, 0.62)),
-    url("../assets/share-hearts-background.png") center 46% / cover no-repeat;
-  border-bottom: 1px solid rgba(229, 221, 211, 0.86);
-}
-
-.share-upload-inner {
-  width: min(900px, 100%);
-  margin: 0 auto;
-}
-
-.share-upload-band .form-intro h1 {
-  text-shadow: 0 2px 18px rgba(255, 253, 248, 0.82);
 }
 
 .about-page {
@@ -931,7 +910,7 @@ h3 {
   display: grid;
   gap: 0;
   max-width: 900px;
-  margin: 0 auto;
+  margin: clamp(1.5rem, 2.5vw, 2rem) auto 0;
 }
 
 .share-step {
@@ -941,7 +920,7 @@ h3 {
 }
 
 .photo-step {
-  padding: clamp(1.5rem, 3vw, 2.2rem) 0 0;
+  padding-top: 0.35rem;
 }
 
 .step-heading {
@@ -993,8 +972,9 @@ h3 {
   overflow: hidden;
   border: 1px dashed var(--soft);
   border-radius: 8px;
-  background: rgba(255, 253, 248, 0.9);
-  box-shadow: 0 16px 42px rgba(110, 74, 70, 0.1);
+  background:
+    linear-gradient(135deg, rgba(184, 107, 107, 0.055), transparent 45%),
+    rgba(255, 253, 248, 0.78);
   cursor: pointer;
 }
 
@@ -1922,7 +1902,7 @@ textarea {
   }
 
   .submit-page .form-intro {
-    text-align: center;
+    text-align: left;
   }
 
   .share-step {
