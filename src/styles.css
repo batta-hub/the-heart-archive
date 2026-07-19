@@ -1121,33 +1121,29 @@ h3 {
   white-space: nowrap !important;
 }
 
-.sharing-promise {
-  max-width: 580px;
-  margin: 1rem auto 0;
-  color: var(--muted);
-  font-size: 0.86rem;
-  line-height: 1.55;
-  text-align: center;
-}
-
 .confirmation-page {
   margin: 0 auto;
   text-align: center;
+}
+
+.confirmation-page .kicker {
+  margin-bottom: clamp(1.15rem, 2vw, 1.5rem);
 }
 
 .confirmation-page h1 {
   max-width: 620px;
   margin-right: auto;
   margin-left: auto;
+  line-height: 1.14;
 }
 
 .confirmation-page p:not(.kicker) {
-  margin: 1rem 0 0;
+  margin: clamp(1.6rem, 3vw, 2rem) 0 0;
 }
 
 .confirmation-page .hero-actions {
   justify-content: center;
-  margin-top: 1.6rem;
+  margin-top: clamp(1.8rem, 3vw, 2.2rem);
 }
 
 .confirmation-heart {
